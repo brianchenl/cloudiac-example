@@ -1,0 +1,29 @@
+---
+- hosts: web
+  gather_facts: false
+  tasks:
+    ## 机器创建需要一段时间，所以先尝试连接, 确保连接可用再执行后续操作
+    - name: Wait connection
+      ## 每秒尝试进行一次连接直到连接成功或者超时
+      wait_for_connection: 
+        sleep: 1
+        timeout: "{{ wait_connection_timeout }}"
+
+    - name: Ensure nginx is at the latest version
+      package:
+        name: nginx
+        state: latest
+      become: yes
+
+    - name: Copy index.html
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+        mode: '0644'
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+      become: yes
+
