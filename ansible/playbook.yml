@@ -17,6 +17,7 @@
 
     - name: Copy index.html
       copy:
+        ## 使用相对路径访问本目录下的文件
         src: index.html
         dest: /var/www/html/index.html
         mode: '0644'
