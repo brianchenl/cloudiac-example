@@ -34,6 +34,9 @@ CloudIaC 云模板项目都需要符合以上目录结构规范。
 #### README.md
 项目说明文档，该文件的内容会在 Iac 平台的云模板概览页展示。
 
+#### main.tf
+云模板主配置文件，在该文件中进行基础设施定义。
+
 #### versions.tf
 该文件中定义依赖的 terraform 版本、providers 及其版本，IaC 会解析该文件进行 providers 的缓存。
 

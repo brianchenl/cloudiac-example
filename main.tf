@@ -46,7 +46,7 @@ resource "alicloud_instance" "web" {
   // 传入 cloud-init 脚本内容。
   // cloudiac 使用 cloud-init 脚本对资源进行初始化，以支持后续通过 ansible 管理。
   // 该参数固定传入以下值即可，对应的 data 会自动创建。
-  user_data = data.cloudinit_config.cloudiac.rendered
+  user_data = local.cloudiac_user_data
 }
 
 // 为每个计算资源创建一个对应的 ansible_host 资源，
