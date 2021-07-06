@@ -14,6 +14,10 @@
         name: nginx
         state: latest
       become: yes
+      retries: 3
+      delay: 5
+      register: ensure_nginx
+      until: ensure_nginx is success
 
     - name: Copy index.html
       copy:
