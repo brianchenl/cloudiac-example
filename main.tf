@@ -30,6 +30,11 @@ resource "alicloud_security_group_rule" "allow_all_tcp" {
   cidr_ip           = "0.0.0.0/0"
 }
 
+resource "alicloud_ecs_key_pair" "default" {
+  key_pair_name = var.key_name
+  public_key    = var.public_key
+}
+
 resource "alicloud_instance" "web" {
   count                = var.instance_number
 
@@ -40,13 +45,10 @@ resource "alicloud_instance" "web" {
   image_id             = "ubuntu_18_04_64_20G_alibase_20190624.vhd"
   instance_name        = var.instance_name
 
+  key_name   = alicloud_ecs_key_pair.default.key_pair_name
   vswitch_id = alicloud_vswitch.default.id
-  internet_max_bandwidth_out = 1
 
-  // 传入 cloud-init 脚本内容。
-  // cloudiac 使用 cloud-init 脚本对资源进行初始化，以支持后续通过 ansible 管理。
-  // 该参数固定传入以下值即可，对应的 data 会自动创建。
-  user_data = local.cloudiac_user_data
+  internet_max_bandwidth_out = 1
 }
 
 // 为每个计算资源创建一个对应的 ansible_host 资源，
