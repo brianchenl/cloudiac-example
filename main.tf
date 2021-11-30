@@ -1,4 +1,3 @@
-
 provider "alicloud" {
   region = "cn-beijing"
 }
@@ -42,7 +41,7 @@ resource "alicloud_instance" "web" {
   security_groups = alicloud_security_group.default.*.id
   instance_type        = var.instance_type
   system_disk_category = "cloud_efficiency"
-  image_id             = "ubuntu_18_04_64_20G_alibase_20190624.vhd"
+  image_id             = "centos_7_9_x64_20G_alibase_20211027.vhd"
   instance_name        = var.instance_name
 
   key_name   = alicloud_ecs_key_pair.default.key_pair_name
