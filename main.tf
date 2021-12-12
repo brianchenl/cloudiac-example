@@ -1,5 +1,5 @@
 provider "alicloud" {
-  region = "cn-beijing"
+  region = "us-west-1"
 }
 
 resource "alicloud_vpc" "default" {
