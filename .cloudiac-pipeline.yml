@@ -1,0 +1,89 @@
+--- 
+version: 0.3
+
+plan:
+  steps: 
+    - type: checkout
+      name: "PR测试👦"
+
+    - type: opaScan
+      name: OPA Scan
+      
+    - type: command
+      name: "说两句"
+      args: 
+        - "echo \"Try it\""
+
+    - type: terraformInit
+      name: "Terraform Init"
+      
+    - type: terraformPlan
+      name: "Terraform Plan"
+
+    - type: command
+      args: 
+        - "echo \"get somethings\""
+        - "bash script.sh"
+#        - "curl 127.0.0.1/api/action"
+
+
+
+apply: 
+  onFail: 
+    type: command
+    args: 
+      - echo "Job failed❌"
+
+  onSuccess: 
+    type: command
+    args: 
+      - echo "Job successful✅"
+
+  steps: 
+    - type: command
+      name: "超时测试⌚️"
+      args: 
+        - echo "我来了,Go～～🏃31s‍♀️"
+        - sleep 31s
+        - echo "biAji～～🏃‍♀️"
+
+    - type: checkout
+      name: "1⃣️Checkout code"
+
+    - type: terraformInit
+      name: "2⃣️Terraform Init"
+
+    - type: opaScan
+      name: 3⃣️OPA Scan
+
+    - type: terraformPlan
+      name: "4⃣️Terraform Plan"
+
+    - type: terraformApply
+      name: "🈚️Terraform Apply"
+
+    - type: ansiblePlay
+      name: "🦌Run playbook"
+
+
+
+destroy: 
+  steps: 
+    - type: checkout
+      name: "火星文🌟"
+
+    - type: terraformInit
+      name: "Terraform Init"
+
+    - type: terraformPlan
+      name: "Terraform Plan"
+      args: 
+        - "-destroy"
+
+    - type: terraformDestroy
+      name: "Terraform Destroy"
+
+    - type: command
+      name: "Say Bye"
+      args: 
+        - echo "Bye!👋"
