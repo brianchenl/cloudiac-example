@@ -4,7 +4,7 @@ version: 0.3
 plan:
   steps: 
     - type: checkout
-      name: "我来了，看看变了没，中文名👦"
+      name: "PR测试👦"
 
     - type: opaScan
       name: OPA Scan
